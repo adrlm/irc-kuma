@@ -10,4 +10,4 @@ OPS  = ["bo1g", "rekyuu", "Luminarys", "Mei-mei", "nuck", "tsunderella", "Liseda
 
 
 if __name__ == '__main__':
-   connect.init()
+   connect.init(HOST, PORT, CHAN, NICK, OPS)
