@@ -1,4 +1,5 @@
-import auth, random, re, socket, time
+import auth, random, re, socket, sys, time
+import sqlite3 as sql
 from markov import Markov
 
 
@@ -87,6 +88,7 @@ def gen_markov (chat_name):
          refresh(chat_name)
    file_.close()
 
+
 """
 IRC functions.
 """
@@ -147,6 +149,7 @@ def get_message (msg):
 def auto_op (username):
    send_mode(CHAN, "+o", username)
 
+
 """
 IRC command definitions and functions.
 """
@@ -170,19 +173,24 @@ def parse_message(msg):
       if msg[0] in commands:
          commands[msg[0]](msg[1])
 
-commands_mod = {
+
+"""
+IRC op command definitions and functions.
+"""
+
+commands_ops = {
    '.refresh': refresh
 }
 
-def parse_message_mod(msg):
+def parse_message_ops(msg):
    if len(msg) == 1:
       msg = msg.split(' ')
-      if msg[0] in commands_mod:
-         commands_mod[msg[0]]()
+      if msg[0] in commands_ops:
+         commands_ops[msg[0]]()
    elif len(msg) >= 2:
       msg = msg.split(' ')
-      if msg[0] in commands_mod:
-         commands_mod[msg[0]](msg[1])
+      if msg[0] in commands_ops:
+         commands_ops[msg[0]](msg[1])
 
 
 """
@@ -220,16 +228,18 @@ while True:
                   join_channel(CHAN)
                   joined = True
                   print("[LOG] Joined channel!")
+
             if line[1] == 'JOIN':
                sender = get_sender(line[0])
                if sender in OPS:
                   auto_op(sender)
+
             if line[1] == 'PRIVMSG':
                sender = get_sender(line[0])
                message = get_message(line)
                print("[MSG] " + sender + ": " + message)
-               if sender == 'bo1g':
-                  parse_message_mod(message)
+               if sender in OPS:
+                  parse_message_ops(message)
                parse_message(message)
 
    except socket.error:
