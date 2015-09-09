@@ -69,7 +69,7 @@ def clean_file (file_):
 def refresh (chat_name):
    global chat_average
 
-   clean_file('../../.weechat/logs/irc.animebytes.{0}.weechatlog'.format(chat_name))
+   clean_file('../../../.weechat/logs/irc.animebytes.{0}.weechatlog'.format(chat_name))
    print('[LOG] Chat log file for {0} refreshed.'.format(chat_name))
 
 
@@ -96,7 +96,6 @@ def random_markov (x):
 
    if rand <= x:
       chat = random.choice(["#animebytes", "#mango"])
-      print(chat)
       out = gen_markov(chat)
       send_message(CHAN, out)
 
