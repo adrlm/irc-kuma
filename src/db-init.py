@@ -17,7 +17,11 @@ with con:
       i += 1
 
    db.execute('SELECT * FROM Ops;')
-   rows = db.fetchall()
 
-   for row in rows:
-      print(row)
+   while True:
+      row = cur.fetchone()
+
+      if row == None:
+         break
+
+      print(row[0], row[1])
