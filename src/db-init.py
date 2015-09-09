@@ -15,3 +15,9 @@ with con:
    for op in OPS:
       db.execute("INSERT INTO Ops(Name) VALUES('{0}');".format(op))
       i += 1
+
+   db.execute('SELECT * FROM Ops;')
+   rows = db.fetchall()
+
+   for row in rows:
+      print(row)
