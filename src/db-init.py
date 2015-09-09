@@ -6,9 +6,12 @@ con = sql.connect('living_in_the_.db')
 OPS  = ["bo1g", "rekyuu", "Luminarys", "Mei-mei", "nuck", "tsunderella", "Liseda", "Wizzie", "Wizbright"]
 
 with con:
-   cur = con.cursor()
+   db = con.cursor()
+
+   db.execute('DROP TABLE IF EXISTS Ops;')
+   db.execute('CREATE TABLE IF NOT EXISTS Ops(Id INTEGER PRIMARY KEY, Name TEXT);')
 
    i = 0
    for op in OPS:
-      cur.execute('INSERT INTO Ops VALUES({0},\'{1}\')'.format(i, op))
+      db.execute("INSERT INTO Ops(Name) VALUES('{0}');".format(op))
       i += 1
