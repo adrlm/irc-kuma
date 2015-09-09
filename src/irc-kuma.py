@@ -115,20 +115,22 @@ def return_markov (chat_name):
             lines = f.read().splitlines()
             if len(lines) == 0:
                gen_batch_markov(chat_name)
+               lines = f.read().splitlines()
 
             rand = rand.randint(0,len(lines))
 
-            out = out + '>' + lines[rand]
+            return lines[rand]
             del lines[rand]
-      except FileNotFoundError:
-         gen_batch_markov (chat_name)
-      finally:
+
          with open('./__cache__/markov_{0}'.format(chat_name), 'w', encoding="utf8") as f:
             for line in lines:
                f.write('{0}\n'.format(line))
 
          return out
          break
+         
+      except FileNotFoundError:
+         gen_batch_markov (chat_name)
 
 
 
