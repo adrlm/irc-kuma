@@ -139,7 +139,7 @@ def delete_op (user):
       db = con.cursor()
 
       try:
-         db.execute("DELETE FROM Ops WHERE EXISTS Name='{0}';".format(user))
+         db.execute("DELETE FROM Ops WHERE Name='{0}';".format(user))
       except sql.Error as e:
          send_message(CHAN, "Unable to remove user: {0}".format(e.args[0]))
 
