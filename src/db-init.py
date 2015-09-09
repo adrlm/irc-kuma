@@ -3,7 +3,7 @@ import sys
 
 
 con = sql.connect('living_in_the_.db')
-OPS  = ["bo1g", "rekyuu", "Luminarys", "Mei-mei", "nuck", "tsunderella", "Liseda", "Wizzie", "Wizbright"]
+OPS  = ["bo1g", "rekyuu", "Luminarys", "Mei-mei", "nuck", "tsunderella", "Liseda", "Wizzie", "Wizbright", "remove_me"]
 
 with con:
    con.row_factory = sql.Row
@@ -14,6 +14,15 @@ with con:
 
    for op in OPS:
       db.execute("INSERT INTO Ops(Name) VALUES('{0}');".format(op))
+
+   db.execute('SELECT * FROM Ops;')
+   rows = db.fetchall()
+
+   for row in rows:
+      print(row['Name'])
+
+   delete = 'remove_me'
+   db.execute('DELETE FROM Ops WHERE Name={0};'.format(delete))
 
    db.execute('SELECT * FROM Ops;')
    rows = db.fetchall()
