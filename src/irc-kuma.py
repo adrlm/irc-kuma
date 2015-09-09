@@ -227,7 +227,7 @@ IRC command definitions and functions.
 """
 
 def send_help ():
-   out = "\/me > .markov [#animebytes, #mango], .op [user], .deop [user], .getops"
+   out = "/me > .markov [#animebytes, #mango], .op [user], .deop [user], .getops"
    send_message(CHAN, out)
 
 def send_markov (chat_name):
