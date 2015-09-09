@@ -129,7 +129,7 @@ def add_op (user):
          if user not in OPS:
             db.execute("INSERT OR IGNORE INTO Ops(Name) VALUES('{0}');".format(user))
             OPS.append(user)
-            send_message(CHAN, "Added {0} to ops.".format(user))
+            send_message(CHAN, "Added {0} to ops. They will be automatically opped from here on out.".format(user))
          else:
             send_message(CHAN, "That user is already an op!")
       except sql.Error as e:
@@ -226,12 +226,16 @@ def auto_op (username):
 IRC command definitions and functions.
 """
 
+def send_help ():
+   out = "/me .markov [#animebytes, #mango], .op [user], .deop [user], .getops"
+
 def send_markov (chat_name):
    out = gen_markov(chat_name)
    send_message(CHAN, out)
    print("[OUT] " + out)
 
 commands = {
+   '.help':  send_help,
    '.markov':  send_markov
 }
 
