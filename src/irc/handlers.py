@@ -1,6 +1,3 @@
-from irc import connect
-
-
 # IRC commands
 def send_pong (msg):
    con.send(bytes('PONG %s\r\n' % msg, 'utf8'))
