@@ -237,11 +237,10 @@ commands = {
 
 def parse_message(msg):
    msg = msg.split(' ')
-   print(msg)
-   if len(msg) == 1:
+   if len(msg) == 2:
       if msg[0] in commands:
          commands[msg[0]]()
-   elif len(msg) >= 2:
+   elif len(msg) >= 3:
       if msg[0] in commands:
          commands[msg[0]](msg[1])
 
@@ -259,11 +258,10 @@ commands_ops = {
 
 def parse_message_ops(msg):
    msg = msg.split(' ')
-   print(msg)
-   if len(msg) == 1:
+   if len(msg) == 2:
       if msg[0] in commands_ops:
          commands_ops[msg[0]]()
-   elif len(msg) >= 2:
+   elif len(msg) >= 3:
       if msg[0] in commands_ops:
          commands_ops[msg[0]](msg[1])
 
