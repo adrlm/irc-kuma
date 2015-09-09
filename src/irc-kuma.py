@@ -225,6 +225,7 @@ PORT = 6667
 CHAN = "#mango"
 NICK = "KumaKaiNi"
 OPS  = []
+init()
 
 # IRC commands
 def send_pong (msg):
@@ -331,6 +332,8 @@ def parse_message_ops(msg):
 """
 Server connection and listening.
 """
+
+init()
 
 irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 data = ""
