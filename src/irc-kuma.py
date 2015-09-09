@@ -94,7 +94,7 @@ Database functions.
 """
 
 # Initializes ops.
-def get_ops ():
+def init_ops ():
    global OPS
 
    con = sql.connect('living_in_the_.db')
@@ -110,6 +110,10 @@ def get_ops ():
       for row in rows:
          OPS.append(row['Name'])
 
+# Sends a message of current ops.
+def get_ops ():
+   out = ', '.join(OPS)
+   send_message(CHAN, "Current ops: {0}")
 
 # Adds a new op.
 def add_op (user):
@@ -131,7 +135,7 @@ def add_op (user):
       except sql.Error as e:
          send_message(CHAN, "Unable to add user: {0}".format(e.args[0]))
 
-   get_ops()
+   init_ops()
 
 # Removes an op.
 def delete_op (user):
@@ -153,7 +157,7 @@ def delete_op (user):
       except sql.Error as e:
          send_message(CHAN, "Unable to remove user: {0}".format(e.args[0]))
 
-   get_ops()
+   init_ops()
 
 
 """
@@ -166,8 +170,7 @@ PORT = 6667
 CHAN = "#kuma"
 NICK = "KumaKaiNi"
 OPS  = []
-get_ops()
-print("[LOG] Current ops", OPS)
+init_ops()
 
 # IRC commands
 def send_pong (msg):
@@ -249,8 +252,9 @@ IRC op command definitions and functions.
 
 commands_ops = {
    '.refresh': refresh,
-   '.addop':   add_op,
-   '.delop':   delete_op
+   '.op':      add_op,
+   '.deop':    delete_op,
+   '.getop':   get_ops
 }
 
 def parse_message_ops(msg):
