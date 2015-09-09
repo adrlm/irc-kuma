@@ -8,7 +8,7 @@ def init (host, port, chan, nick, ops):
 
    con.connect((host, port))
    print("[LOG] Connected!")
-   send_nick(nick)
+   irc.handlers.send_nick(nick)
 
    data = ""
    joined = False
