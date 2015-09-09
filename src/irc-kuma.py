@@ -180,7 +180,7 @@ def send_message (chan, msg):
    irc.send(bytes('PRIVMSG %s :%s\r\n' % (chan, msg), 'utf8'))
 
 def send_action (chan, msg):
-   irc.send(bytes('PRIVMSG %s :ACTION %s\r\n' % (chan, msg), 'utf8'))
+   irc.send(bytes('PRIVMSG %s :\x01 ACTION %s\x01\r\n' % (chan, msg), 'utf8'))
 
 def send_mode (chan, mode, user):
    irc.send(bytes('MODE %s %s: %s\r\n' % (chan, mode, user), 'utf8'))
