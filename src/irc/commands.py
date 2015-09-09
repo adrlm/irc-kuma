@@ -1,12 +1,10 @@
 from irc import handlers
 from markov import gen as mk
 
-irc = irc.handlers
-
 
 def send_markov (chat_name):
    out = mk.gen_markov(chat_name)
-   irc.send_message(CHAN, out)
+   handlers.send_message(CHAN, out)
    print("[OUT] " + out)
 
 commands = {
