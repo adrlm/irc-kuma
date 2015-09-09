@@ -228,6 +228,7 @@ IRC command definitions and functions.
 
 def send_help ():
    out = "/me .markov [#animebytes, #mango], .op [user], .deop [user], .getops"
+   send_message(CHAT, out)
 
 def send_markov (chat_name):
    out = gen_markov(chat_name)
