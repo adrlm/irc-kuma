@@ -254,7 +254,7 @@ commands_ops = {
    '.refresh': refresh,
    '.op':      add_op,
    '.deop':    delete_op,
-   '.getop':   get_ops
+   '.getops':  get_ops
 }
 
 def parse_message_ops(msg):
