@@ -236,6 +236,7 @@ commands = {
 }
 
 def parse_message(msg):
+   print(msg)
    if len(msg) == 1:
       msg = msg.split(' ')
       if msg[0] in commands:
@@ -258,6 +259,7 @@ commands_ops = {
 }
 
 def parse_message_ops(msg):
+   print(msg)
    if len(msg) == 1:
       msg = msg.split(' ')
       if msg[0] in commands_ops:
