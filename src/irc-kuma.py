@@ -129,7 +129,7 @@ def add_op (user):
    get_ops()
 
 # Removes an op.
-def remove_op (user):
+def delete_op (user):
    global OPS
 
    con = sql.connect('living_in_the_.db')
@@ -240,7 +240,7 @@ IRC op command definitions and functions.
 commands_ops = {
    '.refresh': refresh,
    '.addop':   add_op,
-   '.remop':   remove_op
+   '.delop':   delete_op
 }
 
 def parse_message_ops(msg):
