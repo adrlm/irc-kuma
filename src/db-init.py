@@ -22,7 +22,7 @@ with con:
       print(row['Name'])
 
    delete = 'remove_me'
-   db.execute('DELETE FROM Ops WHERE Name={0};'.format(delete))
+   db.execute("DELETE FROM Ops WHERE Name='{0}';".format(delete))
 
    db.execute('SELECT * FROM Ops;')
    rows = db.fetchall()
