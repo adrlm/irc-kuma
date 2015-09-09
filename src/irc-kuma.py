@@ -122,9 +122,10 @@ def add_op (user):
       db = con.cursor()
 
       try:
-         db.execute("INSERT OR IGNORE INTO Ops(Name) VALUES('{0}');".format(user))
          if user not in OPS:
+            db.execute("INSERT OR IGNORE INTO Ops(Name) VALUES('{0}');".format(user))
             OPS.append(user)
+            send_message(CHAN, "Added {0} to ops.".format(user))
          else:
             send_message(CHAN, "That user is already an op!")
       except sql.Error as e:
@@ -143,9 +144,10 @@ def delete_op (user):
       db = con.cursor()
 
       try:
-         db.execute("DELETE FROM Ops WHERE Name='{0}';".format(user))
          if user in OPS:
+            db.execute("DELETE FROM Ops WHERE Name='{0}';".format(user))
             OPS.remove(user)
+            send_message(CHAN, "Removed {0} from ops.".format(user))
          else:
             send_message(CHAN, "That user does not exist!")
       except sql.Error as e:
