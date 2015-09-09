@@ -240,7 +240,7 @@ def parse_message(msg):
       msg = msg.split(' ')
       if msg[0] in commands:
          commands[msg[0]]()
-   elif len(msg) >= 2:
+   if len(msg) >= 2:
       msg = msg.split(' ')
       if msg[0] in commands:
          commands[msg[0]](msg[1])
@@ -262,7 +262,7 @@ def parse_message_ops(msg):
       msg = msg.split(' ')
       if msg[0] in commands_ops:
          commands_ops[msg[0]]()
-   elif len(msg) >= 2:
+   if len(msg) >= 2:
       msg = msg.split(' ')
       if msg[0] in commands_ops:
          commands_ops[msg[0]](msg[1])
