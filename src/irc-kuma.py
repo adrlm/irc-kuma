@@ -122,6 +122,7 @@ def return_markov (chat_name):
          with open('./__cache__/markov_{0}'.format(chat_name), 'w', encoding="utf8") as f:
             for line in lines:
                f.write('{0}\n'.format(line))
+            break
 
 
 
