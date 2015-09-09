@@ -123,6 +123,10 @@ def add_op (user):
 
       try:
          db.execute("INSERT OR IGNORE INTO Ops(Name) VALUES('{0}');".format(user))
+         if user not in OPS:
+            OPS.append(user)
+         else:
+            send_massage(CHAN, "That user is already an op!")
       except sql.Error as e:
          send_message(CHAN, "Unable to add user: {0}".format(e.args[0]))
 
@@ -140,6 +144,10 @@ def delete_op (user):
 
       try:
          db.execute("DELETE FROM Ops WHERE Name='{0}';".format(user))
+         if user not in OPS:
+            OPS.remove(user)
+         else:
+            send_massage(CHAN, "That user does not exist!")
       except sql.Error as e:
          send_message(CHAN, "Unable to remove user: {0}".format(e.args[0]))
 
