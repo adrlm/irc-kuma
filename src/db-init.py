@@ -2,14 +2,14 @@ import sqlite3 as sql
 import sys
 
 # Initiates connection.
-con = sql.connect('living_in_the_.db')
+con = sql.connect('./__cache__/living_in_the_.db')
 
 # Prepopulated list for testing.
 OPS  = ["bo1g", "rekyuu", "Luminarys", "Mei-mei", "nuck", "tsunderella", "Liseda", "Wizzie", "Wizbright", "remove_me"]
 
 # Uses the connection until everything is done, then closes it.
 with con:
-   
+
    # Allows the use of dictionaries for rows.
    con.row_factory = sql.Row
 

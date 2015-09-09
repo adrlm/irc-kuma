@@ -1,4 +1,4 @@
-import auth, random, re, socket, sys, time
+import auth, os, random, re, socket, sys, time
 import sqlite3 as sql
 from markov import Markov
 
@@ -6,6 +6,13 @@ from markov import Markov
 """
 Helper functions.
 """
+
+# Initiation.
+def init ():
+   init_ops()
+   if not os.path.exists('./__cache__/'):
+      os.makedirs('./__cache__/')
+
 
 # Average output generator
 def avg (list_):
@@ -28,6 +35,7 @@ chat_average = {}
 
 def clean_file (file_):
    global chat_average
+
    word_count = []
    avg_words = 0
 
@@ -44,7 +52,7 @@ def clean_file (file_):
    print('[LOG] Creating clean output file for {0}.'.format(chat_name))
 
    file_i = open(file_, encoding="utf8").read().splitlines()
-   file_o = open('clean_log_{0}'.format(chat_name), 'w', encoding="utf8")
+   file_o = open('./__cache__/clean_log_{0}'.format(chat_name), 'w', encoding="utf8")
 
    for line in file_i:
       try:
@@ -81,7 +89,7 @@ def gen_markov (chat_name):
 
    while True:
       try:
-         file_ = open('clean_log_{0}'.format(chat_name), encoding="utf8")
+         file_ = open('./__cache__/clean_log_{0}'.format(chat_name), encoding="utf8")
          markov = Markov(file_)
          return markov.generate_markov_text(chat_average[chat_name] + random.randint(0, int(chat_average[chat_name]/2)))
          break
@@ -108,7 +116,7 @@ Database functions.
 def init_ops ():
    global OPS
 
-   con = sql.connect('living_in_the_.db')
+   con = sql.connect('./__cache__/living_in_the_.db')
 
    with con:
       con.row_factory = sql.Row
@@ -130,7 +138,7 @@ def get_ops ():
 def add_op (user):
    global OPS
 
-   con = sql.connect('living_in_the_.db')
+   con = sql.connect('./__cache__/living_in_the_.db')
 
    with con:
       con.row_factory = sql.Row
@@ -152,7 +160,7 @@ def add_op (user):
 def delete_op (user):
    global OPS
 
-   con = sql.connect('living_in_the_.db')
+   con = sql.connect('./__cache__/living_in_the_.db')
 
    with con:
       con.row_factory = sql.Row
@@ -181,7 +189,6 @@ PORT = 6667
 CHAN = "#kuma"
 NICK = "KumaKaiNi"
 OPS  = []
-init_ops()
 
 # IRC commands
 def send_pong (msg):
