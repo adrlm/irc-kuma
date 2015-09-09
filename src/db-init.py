@@ -19,7 +19,7 @@ with con:
    db.execute('SELECT * FROM Ops;')
 
    while True:
-      row = cur.fetchone()
+      row = db.fetchone()
 
       if row == None:
          break
