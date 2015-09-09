@@ -113,7 +113,7 @@ def init_ops ():
 # Sends a message of current ops.
 def get_ops ():
    out = ', '.join(OPS)
-   send_message(CHAN, "Current ops: {0}")
+   send_message(CHAN, "Current ops: {0}".format(out))
 
 # Adds a new op.
 def add_op (user):
