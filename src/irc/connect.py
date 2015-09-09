@@ -1,5 +1,4 @@
-import auth, socket
-import irc
+import auth, commands, handlers, socket
 
 
 def init (host, port, chan, nick, ops):
@@ -8,7 +7,7 @@ def init (host, port, chan, nick, ops):
 
    con.connect((host, port))
    print("[LOG] Connected!")
-   irc.handlers.send_nick(nick)
+   handlers.send_nick(nick)
 
    data = ""
    joined = False
@@ -25,28 +24,28 @@ def init (host, port, chan, nick, ops):
 
             if len(line) >= 1:
                if line[0] == 'PING':
-                  irc.handlers.send_pong(line[1])
+                  handlers.send_pong(line[1])
 
             if len(line) >= 2:
                if line[1] == 'MODE':
                   if joined == False:
-                     irc.handlers.send_message("NickServ", "IDENTIFY {0}".format(auth.PASS))
-                     irc.handlers.join_channel(chan)
+                     handlers.send_message("NickServ", "IDENTIFY {0}".format(auth.PASS))
+                     handlers.join_channel(chan)
                      joined = True
                      print("[LOG] Joined channel!")
 
                if line[1] == 'JOIN':
-                  sender = irc.handlers.get_sender(line[0])
+                  sender = handlers.get_sender(line[0])
                   if sender in ops:
-                     irc.handlers.auto_op(sender)
+                     handlers.auto_op(sender)
 
                if line[1] == 'PRIVMSG':
-                  sender = irc.handlers.get_sender(line[0])
-                  message = irc.handlers.get_message(line)
+                  sender = handlers.get_sender(line[0])
+                  message = handlers.get_message(line)
                   print("[MSG] " + sender + ": " + message)
                   if sender in ops:
-                     irc.commands.parse_message_op(message)
-                  irc.commands.parse_message(message)
+                     commands.parse_message_op(message)
+                  commands.parse_message(message)
 
       except socket.error:
          print("[ERR] Socket died")
