@@ -222,7 +222,7 @@ IRC functions.
 # IRC settings
 HOST = "irc.animebytes.tv"
 PORT = 6667
-CHAN = "#kuma"
+CHAN = "#mango"
 NICK = "KumaKaiNi"
 OPS  = []
 
