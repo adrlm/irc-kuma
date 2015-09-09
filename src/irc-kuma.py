@@ -112,10 +112,10 @@ def return_markov (chat_name):
       try:
          with open('./__cache__/markov_{0}'.format(chat_name), encoding="utf8") as f:
             lines = f.read().splitlines()
-            rand = rand.randint(0,len(lines))
-
             if len(lines) == 0:
                gen_batch_markov(chat_name)
+
+            rand = rand.randint(0,len(lines))
 
             out = lines[rand]
             del lines[rand]
@@ -125,7 +125,7 @@ def return_markov (chat_name):
          with open('./__cache__/markov_{0}'.format(chat_name), 'w', encoding="utf8") as f:
             for line in lines:
                f.write('{0}\n'.format(line))
-               
+
          return out
          break
 
