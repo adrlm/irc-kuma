@@ -69,8 +69,11 @@ def clean_file (file_):
 def refresh (chat_name):
    global chat_average
 
-   clean_file('../../../.weechat/logs/irc.animebytes.{0}.weechatlog'.format(chat_name))
-   print('[LOG] Chat log file for {0} refreshed.'.format(chat_name))
+   try:
+      clean_file('../../../.weechat/logs/irc.animebytes.{0}.weechatlog'.format(chat_name))
+      print('[LOG] Chat log file for {0} refreshed.'.format(chat_name))
+   except FileNotFoundError:
+      return "Sorry, either that log does not exist or you forgot to enter a parameter."
 
 
 def gen_markov (chat_name):
@@ -82,8 +85,6 @@ def gen_markov (chat_name):
          markov = Markov(file_)
          return markov.generate_markov_text(chat_average[chat_name] + random.randint(0, int(chat_average[chat_name]/2)))
          break
-      except FileNotFoundError:
-         return "Sorry, either that log does not exist or you forgot to enter a parameter."
       except:
          refresh(chat_name)
    file_.close()
