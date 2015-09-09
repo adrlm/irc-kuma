@@ -11,5 +11,5 @@ with con:
 
    i = 0
    for op in OPS:
-      cur.execute('INSERT INTO Ops VALUES({0},{1})'.format(i, op))
+      cur.execute('INSERT INTO Ops VALUES({0},\'{1}\')'.format(i, op))
       i += 1
