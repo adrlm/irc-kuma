@@ -7,7 +7,6 @@ OPS  = ["bo1g", "rekyuu", "Luminarys", "Mei-mei", "nuck", "tsunderella", "Liseda
 
 with con:
    cur = con.cursor()
-   cur.execute('CREATE TABLE Ops(Id INT, Name TEXT)')
 
    i = 0
    for op in OPS:
