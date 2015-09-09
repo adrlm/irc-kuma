@@ -107,6 +107,7 @@ def gen_batch_markov (chat_name):
 def return_markov (chat_name):
    lines = []
    rand = 0
+   out = ''
 
    while True:
       try:
