@@ -179,6 +179,9 @@ def send_pong (msg):
 def send_message (chan, msg):
    irc.send(bytes('PRIVMSG %s :%s\r\n' % (chan, msg), 'utf8'))
 
+def send_action (chan, msg):
+   irc.send(bytes('PRIVMSG %s :ACTION %s\r\n' % (chan, msg), 'utf8'))
+
 def send_mode (chan, mode, user):
    irc.send(bytes('MODE %s %s: %s\r\n' % (chan, mode, user), 'utf8'))
 
@@ -227,8 +230,8 @@ IRC command definitions and functions.
 """
 
 def send_help ():
-   out = "/me > .markov [#animebytes, #mango], .op [user], .deop [user], .getops"
-   send_message(CHAN, out)
+   out = "> .markov [#animebytes, #mango], .op [user], .deop [user], .getops"
+   send_action(CHAN, out)
 
 def send_markov (chat_name):
    out = gen_markov(chat_name)
