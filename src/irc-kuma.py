@@ -77,7 +77,6 @@ def refresh (chat_name):
 
    try:
       clean_file('../../../.weechat/logs/irc.animebytes.{0}.weechatlog'.format(chat_name))
-      gen_batch_markov (chat_name)
       print('[LOG] Chat log file for {0} refreshed.'.format(chat_name))
    except FileNotFoundError:
       return "Sorry, either that log does not exist or you forgot to enter a parameter."
