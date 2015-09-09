@@ -118,7 +118,7 @@ def return_markov (chat_name):
 
             rand = rand.randint(0,len(lines))
 
-            out = lines[rand]
+            out = out + '>' lines[rand]
             del lines[rand]
       except FileNotFoundError:
          gen_batch_markov (chat_name)
