@@ -14,7 +14,7 @@ try:
 
    print("SQLite version {0}".format(data))
 
-except sql.Error, e:
+except (sql.Error, e):
    print("Error {0}:".format(e.args[0]))
    sys.exit(1)
 
