@@ -1,4 +1,5 @@
-import auth, commands, handlers, socket
+import auth, socket
+from irc import commands, handlers
 
 
 def init (host, port, chan, nick, ops):
