@@ -97,6 +97,7 @@ def gen_markov (chat_name):
 
 
 def gen_batch_markov (chat_name):
+   print('[LOG] Creating batch lines for {0}.'.format(chat_name))
    with open('./__cache__/markov_{0}'.format(chat_name), 'w', encoding="utf8") as f:
       for i in range (0, 100):
          out = gen_markov(chat_name)
