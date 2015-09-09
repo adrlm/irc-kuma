@@ -90,6 +90,57 @@ def gen_markov (chat_name):
 
 
 """
+Database functions.
+"""
+
+# Initializes ops.
+def get_ops ():
+   global OPS
+
+   con = sql.connect('living_in_the_.db')
+
+   with con:
+      con.row_factory = sql.Row
+      db = con.cursor()
+
+      OPS = []
+      db.execute('SELECT * FROM Ops;')
+      rows = db.fetchall()
+
+      for row in rows:
+         OPS.append(row['Name'])
+
+
+# Adds a new op.
+def add_op (user):
+   global OPS
+
+   con = sql.connect('living_in_the_.db')
+
+   with con:
+      con.row_factory = sql.Row
+      db = con.cursor()
+
+      db.execute("INSERT INTO Ops(Name) VALUES('{0}');".format(user))
+
+   get_ops()
+
+# Removes an op.
+def remove_op (user):
+   global OPS
+
+   con = sql.connect('living_in_the_.db')
+
+   with con:
+      con.row_factory = sql.Row
+      db = con.cursor()
+
+      db.execute("DELETE FROM Ops WHERE Name='{0}';".format(user))
+
+   get_ops()
+
+
+"""
 IRC functions.
 """
 
@@ -98,30 +149,32 @@ HOST = "irc.animebytes.tv"
 PORT = 6667
 CHAN = "#kuma"
 NICK = "KumaKaiNi"
-OPS  = ["bo1g", "rekyuu", "Luminarys", "Mei-mei", "nuck", "tsunderella", "Liseda", "Wizzie", "Wizbright"]
+OPS  = []
+get_ops()
+print("[LOG] Current ops", OPS)
 
 # IRC commands
 def send_pong (msg):
-   con.send(bytes('PONG %s\r\n' % msg, 'utf8'))
+   irc.send(bytes('PONG %s\r\n' % msg, 'utf8'))
 
 def send_message (chan, msg):
-   con.send(bytes('PRIVMSG %s :%s\r\n' % (chan, msg), 'utf8'))
+   irc.send(bytes('PRIVMSG %s :%s\r\n' % (chan, msg), 'utf8'))
 
 def send_mode (chan, mode, user):
-   con.send(bytes('MODE %s %s: %s\r\n' % (chan, mode, user), 'utf8'))
+   irc.send(bytes('MODE %s %s: %s\r\n' % (chan, mode, user), 'utf8'))
 
 def send_nick (nick):
-   con.send(bytes('USER %s %s %s %s\n' % (nick, nick, nick, nick), 'utf8'))
-   con.send(bytes('NICK %s\n' % nick, 'utf8'))
+   irc.send(bytes('USER %s %s %s %s\n' % (nick, nick, nick, nick), 'utf8'))
+   irc.send(bytes('NICK %s\n' % nick, 'utf8'))
 
 def send_pass (password):
-   con.send(bytes('PASS %s\r\n' % password, 'utf8'))
+   irc.send(bytes('PASS %s\r\n' % password, 'utf8'))
 
 def join_channel (chan):
-   con.send(bytes('JOIN %s\r\n' % chan, 'utf8'))
+   irc.send(bytes('JOIN %s\r\n' % chan, 'utf8'))
 
 def part_channel (chan):
-   con.send(bytes('PART %s\r\n' % chan, 'utf8'))
+   irc.send(bytes('PART %s\r\n' % chan, 'utf8'))
 
 
 # IRC chat functions
@@ -197,10 +250,10 @@ def parse_message_ops(msg):
 Server connection and listening.
 """
 
-con = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 data = ""
 
-con.connect((HOST, PORT))
+irc.connect((HOST, PORT))
 print("[LOG] Connected!")
 send_nick(NICK)
 
@@ -209,7 +262,7 @@ joined = False
 
 while True:
    try:
-      data = data + con.recv(4096).decode('utf8')
+      data = data + irc.recv(4096).decode('utf8')
       data_split = re.split(r"[~\r\n]+", data)
       data = data_split.pop()
 

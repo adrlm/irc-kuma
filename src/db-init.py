@@ -9,6 +9,7 @@ OPS  = ["bo1g", "rekyuu", "Luminarys", "Mei-mei", "nuck", "tsunderella", "Liseda
 
 # Uses the connection until everything is done, then closes it.
 with con:
+   
    # Allows the use of dictionaries for rows.
    con.row_factory = sql.Row
 
