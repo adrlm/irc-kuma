@@ -95,7 +95,8 @@ def random_markov (x):
    x = int(x * 10)
 
    if rand <= x:
-      out = gen_markov(random.choice(["#animebytes", "#mango"]))
+      chats = ["#animebytes", "#mango"]
+      out = gen_markov(random.choice(chats))
       send_message(CHAN, out)
 
 """
