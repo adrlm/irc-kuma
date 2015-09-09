@@ -1,8 +1,5 @@
 # IRC commands
-class Handlers (con):
-
-   def __init__ (self, con):
-      self.con = con
+def handlers (con):
 
    def _pong (msg):
       con.send(bytes('PONG %s\r\n' % msg, 'utf8'))

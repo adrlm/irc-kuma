@@ -6,8 +6,8 @@ con = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 def init (host, port, chan, nick, ops):
    global con
-   
-   send = handlers.Handlers(con)
+
+   send = handlers.handlers(con)
    data = ""
 
    con.connect((host, port))

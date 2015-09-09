@@ -1,7 +1,7 @@
 from irc import connect, handlers
 from markov import gen as mk
 
-send = handlers.Handlers(connect.con)
+send = handlers.handlers(connect.con)
 
 
 def send_markov (chat_name):
