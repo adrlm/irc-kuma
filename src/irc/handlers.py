@@ -1,5 +1,5 @@
 # IRC commands
-class Handlers (self, con):
+class Handlers (con):
 
    def __init__ (self, con):
       self.con = con
