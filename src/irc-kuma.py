@@ -122,7 +122,7 @@ def add_op (user):
       db = con.cursor()
 
       try:
-         db.execute("INSERT INTO Ops(Name) IF NOT EXISTS VALUES('{0}');".format(user))
+         db.execute("INSERT INTO Ops(Name) WHERE NOT EXISTS VALUES('{0}');".format(user))
       except sql.Error as e:
          send_message(CHAN, "Unable to add user: {0}".format(e.args[0]))
 
