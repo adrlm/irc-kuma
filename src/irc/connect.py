@@ -1,14 +1,18 @@
 import auth, socket
 from irc import commands, handlers
 
+con = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
 
 def init (host, port, chan, nick, ops):
-   con = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+   global con
+   
+   send = handlers.Handlers(con)
    data = ""
 
    con.connect((host, port))
    print("[LOG] Connected!")
-   handlers.send_nick(nick)
+   send._nick(nick)
 
    data = ""
    joined = False
@@ -25,13 +29,13 @@ def init (host, port, chan, nick, ops):
 
             if len(line) >= 1:
                if line[0] == 'PING':
-                  handlers.send_pong(line[1])
+                  send._pong(line[1])
 
             if len(line) >= 2:
                if line[1] == 'MODE':
                   if joined == False:
-                     handlers.send_message("NickServ", "IDENTIFY {0}".format(auth.PASS))
-                     handlers.join_channel(chan)
+                     send._message("NickServ", "IDENTIFY {0}".format(auth.PASS))
+                     send._channel(chan)
                      joined = True
                      print("[LOG] Joined channel!")
 
