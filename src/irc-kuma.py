@@ -310,10 +310,13 @@ while True:
          line = str.split(line)
 
          if len(line) >= 1:
+
             if line[0] == 'PING':
                send_pong(line[1])
 
+
          if len(line) >= 2:
+
             if line[1] == 'MODE':
                if joined == False:
                   send_message("NickServ", "IDENTIFY {0}".format(auth.PASS))
@@ -321,19 +324,24 @@ while True:
                   joined = True
                   print("[LOG] Joined channel!")
 
+
             if line[1] == 'JOIN':
                sender = get_sender(line[0])
                if sender in OPS:
                   auto_op(sender)
 
+
             if line[1] == 'PRIVMSG':
                sender = get_sender(line[0])
                message = get_message(line)
                print("[MSG] " + sender + ": " + message)
-               random_markov(100)
+
+               random_markov(2)
+
                if sender in OPS:
                   parse_message_ops(message)
                parse_message(message)
+
 
    except socket.error:
       print("[ERR] Socket died")
