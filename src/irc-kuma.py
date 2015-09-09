@@ -89,6 +89,15 @@ def gen_markov (chat_name):
    file_.close()
 
 
+# Sends a markov message at random percentage rate.
+def random_markov (x):
+   rand = int(random.randint(1,1000))
+   x = int(x * 10)
+
+   if rand <= x:
+      out = gen_markov(random.choice(["#animebytes", "#mango"]))
+      send_message(CHAN, out)
+
 """
 Database functions.
 """
@@ -319,6 +328,7 @@ while True:
                sender = get_sender(line[0])
                message = get_message(line)
                print("[MSG] " + sender + ": " + message)
+               random_markov(100)
                if sender in OPS:
                   parse_message_ops(message)
                parse_message(message)
