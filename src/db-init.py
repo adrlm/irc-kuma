@@ -1,6 +1,11 @@
 import sqlite3 as sql
 import sys
 
+
+# Creates /__cache__/ if it doesn't already exist.
+if not os.path.exists('./__cache__/'):
+   os.makedirs('./__cache__/')
+
 # Initiates connection.
 con = sql.connect('./__cache__/living_in_the_.db')
 

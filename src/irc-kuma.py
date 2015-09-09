@@ -10,8 +10,6 @@ Helper functions.
 # Initiation.
 def init ():
    init_ops()
-   if not os.path.exists('./__cache__/'):
-      os.makedirs('./__cache__/')
 
 
 # Average output generator
@@ -79,6 +77,7 @@ def refresh (chat_name):
 
    try:
       clean_file('../../../.weechat/logs/irc.animebytes.{0}.weechatlog'.format(chat_name))
+      gen_batch_markov (chat_name)
       print('[LOG] Chat log file for {0} refreshed.'.format(chat_name))
    except FileNotFoundError:
       return "Sorry, either that log does not exist or you forgot to enter a parameter."
@@ -98,6 +97,34 @@ def gen_markov (chat_name):
    file_.close()
 
 
+def gen_batch_markov (chat_name):
+   with open('./__cache__/markov_{0}'.format(chat_name), 'w', encoding="utf8") as f:
+      for i in range (0, 100):
+         out = gen_markov(chat_name)
+         f.write('{0}\n'.format(out))
+
+
+def return_markov (chat_name):
+   lines = []
+   rand = 0
+
+   while True:
+      try:
+         with open('./__cache__/markov_{0}'.format(chat_name), encoding="utf8") as f:
+            lines = f.read().splitlines()
+            rand = rand.randint(0,len(lines))
+
+            return lines[rand]
+            del lines[rand]
+      except FileNotFoundError:
+         gen_batch_markov (chat_name)
+      finally:
+         with open('./__cache__/markov_{0}'.format(chat_name), 'w', encoding="utf8") as f:
+            for line in lines:
+               f.write('{0}\n'.format(line))
+
+
+
 # Sends a markov message at random percentage rate.
 def random_markov (x):
    rand = int(random.randint(1,1000))
@@ -105,7 +132,7 @@ def random_markov (x):
 
    if rand <= x:
       chat = random.choice(["#animebytes", "#mango"])
-      out = gen_markov(chat)
+      out = return_markov(chat)
       send_message(CHAN, out)
 
 """
@@ -252,7 +279,7 @@ def send_help ():
    send_action(CHAN, out)
 
 def send_markov (chat_name):
-   out = gen_markov(chat_name)
+   out = return_markov(chat_name)
    send_message(CHAN, out)
    print("[OUT] " + out)
 
