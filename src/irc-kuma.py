@@ -123,7 +123,7 @@ def add_op (user):
 
       try:
          db.execute("INSERT INTO Ops(Name) IF NOT EXISTS VALUES('{0}');".format(user))
-      except (sql.Error e):
+      except sql.Error as e:
          send_message(CHAN, "Unable to add user: {0}".format(e.args[0]))
 
    get_ops()
@@ -140,7 +140,7 @@ def remove_op (user):
 
       try:
          db.execute("DELETE FROM Ops WHERE EXISTS Name='{0}';".format(user))
-      except (sql.Error e):
+      except sql.Error as e:
          send_message(CHAN, "Unable to remove user: {0}".format(e.args[0]))
 
    get_ops()
