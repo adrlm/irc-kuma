@@ -144,7 +144,7 @@ def delete_op (user):
 
       try:
          db.execute("DELETE FROM Ops WHERE Name='{0}';".format(user))
-         if user not in OPS:
+         if user in OPS:
             OPS.remove(user)
          else:
             send_message(CHAN, "That user does not exist!")
