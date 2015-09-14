@@ -382,7 +382,7 @@ while True:
                message = get_message(line)
                print("[MSG] " + sender + ": " + message)
 
-               random_markov(2)
+               random_markov(0.5)
 
                if sender in OPS:
                   parse_message_ops(message)
