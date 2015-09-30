@@ -3,7 +3,7 @@ import sqlite3 as sql
 from markov import Markov
 
 DIR = os.path.dirname(os.path.realpath(__file__))
-
+print(DIR)
 
 """
 Helper functions.
