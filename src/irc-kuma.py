@@ -52,7 +52,7 @@ def clean_file (file_):
    print('[LOG] Creating clean output file for {0}.'.format(chat_name))
 
    file_i = open(file_, encoding="utf8").read().splitlines()
-   file_o = open(DIR + '__cache__/clean_log_{0}'.format(chat_name), 'w', encoding="utf8")
+   file_o = open(DIR + '/__cache__/clean_log_{0}'.format(chat_name), 'w', encoding="utf8")
 
    for line in file_i:
       try:
@@ -89,7 +89,7 @@ def gen_markov (chat_name):
 
    while True:
       try:
-         file_ = open(DIR + '__cache__/clean_log_{0}'.format(chat_name), encoding="utf8")
+         file_ = open(DIR + '/__cache__/clean_log_{0}'.format(chat_name), encoding="utf8")
          markov = Markov(file_)
          return markov.generate_markov_text(chat_average[chat_name] + random.randint(0, int(chat_average[chat_name]/2)))
          break
@@ -100,7 +100,7 @@ def gen_markov (chat_name):
 
 def gen_batch_markov (chat_name):
    print('[LOG] Creating batch lines for {0}.'.format(chat_name))
-   with open(DIR + '__cache__/markov_{0}'.format(chat_name), 'w', encoding="utf8") as f:
+   with open(DIR + '/__cache__/markov_{0}'.format(chat_name), 'w', encoding="utf8") as f:
       for i in range (0, 100):
          out = gen_markov(chat_name)
          f.write('{0}\n'.format(out))
@@ -113,7 +113,7 @@ def return_markov (chat_name):
 
    while True:
       try:
-         with open(DIR + '__cache__/markov_{0}'.format(chat_name), encoding="utf8") as f:
+         with open(DIR + '/__cache__/markov_{0}'.format(chat_name), encoding="utf8") as f:
             lines = f.read().splitlines()
             if len(lines) == 0:
                gen_batch_markov(chat_name)
@@ -124,7 +124,7 @@ def return_markov (chat_name):
             return lines[rand]
             del lines[rand]
 
-         with open(DIR + '__cache__/markov_{0}'.format(chat_name), 'w', encoding="utf8") as f:
+         with open(DIR + '/__cache__/markov_{0}'.format(chat_name), 'w', encoding="utf8") as f:
             for line in lines:
                f.write('{0}\n'.format(line))
 
@@ -154,7 +154,7 @@ Database functions.
 def init_ops ():
    global OPS
 
-   con = sql.connect(DIR + '__cache__/living_in_the_.db')
+   con = sql.connect(DIR + '/__cache__/living_in_the_.db')
 
    with con:
       con.row_factory = sql.Row
@@ -176,7 +176,7 @@ def get_ops ():
 def add_op (user):
    global OPS
 
-   con = sql.connect(DIR + '__cache__/living_in_the_.db')
+   con = sql.connect(DIR + '/__cache__/living_in_the_.db')
 
    with con:
       con.row_factory = sql.Row
@@ -198,7 +198,7 @@ def add_op (user):
 def delete_op (user):
    global OPS
 
-   con = sql.connect(DIR + '__cache__/living_in_the_.db')
+   con = sql.connect(DIR + '/__cache__/living_in_the_.db')
 
    with con:
       con.row_factory = sql.Row
