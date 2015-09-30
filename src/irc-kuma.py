@@ -50,7 +50,7 @@ def clean_file (file_):
    print('[LOG] Creating clean output file for {0}.'.format(chat_name))
 
    file_i = open(file_, encoding="utf8").read().splitlines()
-   file_o = open('./__cache__/clean_log_{0}'.format(chat_name), 'w', encoding="utf8")
+   file_o = open('__cache__/clean_log_{0}'.format(chat_name), 'w', encoding="utf8")
 
    for line in file_i:
       try:
@@ -76,7 +76,7 @@ def refresh (chat_name):
    global chat_average
 
    try:
-      clean_file('../../../.weechat/logs/irc.animebytes.{0}.weechatlog'.format(chat_name))
+      clean_file('/home/bo1g/.weechat/logs/irc.animebytes.{0}.weechatlog'.format(chat_name))
       print('[LOG] Chat log file for {0} refreshed.'.format(chat_name))
    except FileNotFoundError:
       return "Sorry, either that log does not exist or you forgot to enter a parameter."
@@ -87,7 +87,7 @@ def gen_markov (chat_name):
 
    while True:
       try:
-         file_ = open('./__cache__/clean_log_{0}'.format(chat_name), encoding="utf8")
+         file_ = open('__cache__/clean_log_{0}'.format(chat_name), encoding="utf8")
          markov = Markov(file_)
          return markov.generate_markov_text(chat_average[chat_name] + random.randint(0, int(chat_average[chat_name]/2)))
          break
@@ -98,7 +98,7 @@ def gen_markov (chat_name):
 
 def gen_batch_markov (chat_name):
    print('[LOG] Creating batch lines for {0}.'.format(chat_name))
-   with open('./__cache__/markov_{0}'.format(chat_name), 'w', encoding="utf8") as f:
+   with open('__cache__/markov_{0}'.format(chat_name), 'w', encoding="utf8") as f:
       for i in range (0, 100):
          out = gen_markov(chat_name)
          f.write('{0}\n'.format(out))
@@ -111,7 +111,7 @@ def return_markov (chat_name):
 
    while True:
       try:
-         with open('./__cache__/markov_{0}'.format(chat_name), encoding="utf8") as f:
+         with open('__cache__/markov_{0}'.format(chat_name), encoding="utf8") as f:
             lines = f.read().splitlines()
             if len(lines) == 0:
                gen_batch_markov(chat_name)
@@ -122,7 +122,7 @@ def return_markov (chat_name):
             return lines[rand]
             del lines[rand]
 
-         with open('./__cache__/markov_{0}'.format(chat_name), 'w', encoding="utf8") as f:
+         with open('__cache__/markov_{0}'.format(chat_name), 'w', encoding="utf8") as f:
             for line in lines:
                f.write('{0}\n'.format(line))
 
@@ -152,7 +152,7 @@ Database functions.
 def init_ops ():
    global OPS
 
-   con = sql.connect('./__cache__/living_in_the_.db')
+   con = sql.connect('__cache__/living_in_the_.db')
 
    with con:
       con.row_factory = sql.Row
@@ -174,7 +174,7 @@ def get_ops ():
 def add_op (user):
    global OPS
 
-   con = sql.connect('./__cache__/living_in_the_.db')
+   con = sql.connect('__cache__/living_in_the_.db')
 
    with con:
       con.row_factory = sql.Row
@@ -196,7 +196,7 @@ def add_op (user):
 def delete_op (user):
    global OPS
 
-   con = sql.connect('./__cache__/living_in_the_.db')
+   con = sql.connect('__cache__/living_in_the_.db')
 
    with con:
       con.row_factory = sql.Row
