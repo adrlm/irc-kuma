@@ -306,8 +306,11 @@ def parse_message(msg):
       if msg[0] in commands:
          commands[msg[0]]()
    elif len(msg) >= 3:
-      if msg[0] in commands:
-         commands[msg[0]](msg[1])
+      try:
+         if msg[0] in commands:
+            commands[msg[0]](msg[1])
+      except:
+         send_message(CHAN, 'That requires one additional argument!')
 
 
 """
