@@ -37,7 +37,7 @@ chat_average = {}
 def chan_check (chan):
 	if os.path.isfile('/home/bo1g/.weechat/logs/irc.animebytes.{0}.weechatlog', chan) is True:
 		return True
-	else:
+	elif os.path.isfile('/home/bo1g/.weechat/logs/irc.animebytes.{0}.weechatlog', chan) is False:
 		return False
 
 
@@ -131,7 +131,7 @@ def return_markov (chat_name):
 
 				rand = random.randint(0,len(lines))
 
-				return lines[rand]
+				out = lines[rand]
 				del lines[rand]
 
 			with open(DIR + '/__cache__/markov_{0}'.format(chat_name), 'w', encoding="utf8") as f:
@@ -142,7 +142,8 @@ def return_markov (chat_name):
 			break
 
 		except FileNotFoundError:
-			if chan_check(chat_name) == False:
+			if chan_check (chat_name) is False:
+				send_message(CHAN, "but nobody came")
 				break
 			else:
 				gen_batch_markov (chat_name)
