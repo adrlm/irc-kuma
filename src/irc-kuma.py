@@ -93,6 +93,9 @@ def gen_markov (chat_name):
 			markov = Markov(file_)
 			return markov.generate_markov_text(chat_average[chat_name] + random.randint(0, int(chat_average[chat_name]/2)))
 			break
+		except FileNotFoundError:
+			send_message(CHAN, "what????")
+			break
 		except:
 			refresh(chat_name)
 	file_.close()
@@ -111,30 +114,28 @@ def return_markov (chat_name):
 	rand = 0
 	out = ''
 
-	try:
-		with open(DIR + '/__cache__/markov_{0}'.format(chat_name), encoding="utf8") as f:
-			lines = f.read().splitlines()
-			if len(lines) == 0:
-				gen_batch_markov(chat_name)
+	while True:
+		try:
+			with open(DIR + '/__cache__/markov_{0}'.format(chat_name), encoding="utf8") as f:
 				lines = f.read().splitlines()
+				if len(lines) == 0:
+					gen_batch_markov(chat_name)
+					lines = f.read().splitlines()
 
-			rand = random.randint(0,len(lines))
+				rand = random.randint(0,len(lines))
 
-			return lines[rand]
-			del lines[rand]
+				return lines[rand]
+				del lines[rand]
 
-		with open(DIR + '/__cache__/markov_{0}'.format(chat_name), 'w', encoding="utf8") as f:
-			for line in lines:
-				f.write('{0}\n'.format(line))
+			with open(DIR + '/__cache__/markov_{0}'.format(chat_name), 'w', encoding="utf8") as f:
+				for line in lines:
+					f.write('{0}\n'.format(line))
 
-		return out
-		break
+			return out
+			break
 
-	except FileNotFoundError:
-		gen_batch_markov (chat_name)
-
-	except:
-		pass
+		except FileNotFoundError:
+			gen_batch_markov (chat_name)
 
 
 
@@ -298,8 +299,8 @@ def send_markov (chat_name):
 	print("[OUT] " + out)
 
 commands = {
-	'.help':  send_help,
-	'.markov':  send_markov
+	'.help': 	send_help,
+	'.markov': 	send_markov
 }
 
 def parse_message(msg):
@@ -320,10 +321,10 @@ IRC op command definitions and functions.
 """
 
 commands_ops = {
-	'.refresh': refresh,
+	'.refresh':	refresh,
 	'.op':		add_op,
-	'.deop':	 delete_op,
-	'.getops':  get_ops
+	'.deop':	delete_op,
+	'.getops': 	get_ops
 }
 
 def parse_message_ops(msg):
