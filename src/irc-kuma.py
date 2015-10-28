@@ -144,7 +144,7 @@ def return_markov (chat_name):
 
 		except FileNotFoundError:
 			if chan_check (chat_name) is False:
-				send_message(CHAN, "but nobody came")
+				return "but nobody came"
 				break
 			else:
 				gen_batch_markov (chat_name)
