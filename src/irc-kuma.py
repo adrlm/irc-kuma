@@ -35,9 +35,10 @@ chat_average = {}
 
 
 def chan_check (chan):
-	if os.path.isfile('/home/bo1g/.weechat/logs/irc.animebytes.{0}.weechatlog', chan) is True:
+	log = '/home/bo1g/.weechat/logs/irc.animebytes.' + chan + '.weechatlog'
+	if os.path.isfile(log) is True:
 		return True
-	elif os.path.isfile('/home/bo1g/.weechat/logs/irc.animebytes.{0}.weechatlog', chan) is False:
+	elif os.path.isfile(log) is False:
 		return False
 
 
