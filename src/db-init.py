@@ -10,7 +10,7 @@ if not os.path.exists('./__cache__/'):
 con = sql.connect('./__cache__/living_in_the_.db')
 
 # Prepopulated list for testing.
-OPS  = ["bo1g", "rekyuu", "Luminarys", "Mei-mei", "nuck", "tsunderella", "Liseda", "Wizzie", "Wizbright", "remove_me"]
+OPS  = ["bo1g", "rekyuu", "Luminarys", "Mei-mei", "nuck", "tsunderella", "Liseda", "Wizzie", "Wizbright", "remove_me", "adrl"]
 
 # Uses the connection until everything is done, then closes it.
 with con:
