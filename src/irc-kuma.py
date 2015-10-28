@@ -33,6 +33,14 @@ IGNORE = ['.luser', 'Raw', '!user', '.s']
 # Counter of how many words are in a message to be averaged later
 chat_average = {}
 
+
+def chan_check (chan):
+	if os.path.isfile('/home/bo1g/.weechat/logs/irc.animebytes.{0}.weechatlog', chan) is True:
+		return True
+	else:
+		return False
+
+
 def clean_file (file_):
 	global chat_average
 
@@ -81,7 +89,7 @@ def refresh (chat_name):
 		clean_file('/home/bo1g/.weechat/logs/irc.animebytes.{0}.weechatlog'.format(chat_name))
 		print('[LOG] Chat log file for {0} refreshed.'.format(chat_name))
 	except FileNotFoundError:
-		return "Sorry, either that log does not exist or you forgot to enter a parameter."
+		send_message(CHAN, "Sorry, either that log does not exist or you forgot to enter a parameter.")
 
 
 def gen_markov (chat_name):
@@ -92,7 +100,7 @@ def gen_markov (chat_name):
 			with open(DIR + '/__cache__/clean_log_{0}'.format(chat_name), 'w', encoding="utf8") as f:
 				markov = Markov(f)
 				return markov.generate_markov_text(chat_average[chat_name] + random.randint(0, int(chat_average[chat_name]/2)))
-				break
+			break
 		except FileNotFoundError:
 			send_message(CHAN, "what????")
 			break
@@ -134,7 +142,10 @@ def return_markov (chat_name):
 			break
 
 		except FileNotFoundError:
-			gen_batch_markov (chat_name)
+			if chan_check(chat_name) == False:
+				break
+			else:
+				gen_batch_markov (chat_name)
 
 
 
