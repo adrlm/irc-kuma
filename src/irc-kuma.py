@@ -89,16 +89,15 @@ def gen_markov (chat_name):
 
 	while True:
 		try:
-			file_ = open(DIR + '/__cache__/clean_log_{0}'.format(chat_name), encoding="utf8")
-			markov = Markov(file_)
-			return markov.generate_markov_text(chat_average[chat_name] + random.randint(0, int(chat_average[chat_name]/2)))
-			break
+			with open(DIR + '/__cache__/clean_log_{0}'.format(chat_name), 'w', encoding="utf8") as f:
+				markov = Markov(f)
+				return markov.generate_markov_text(chat_average[chat_name] + random.randint(0, int(chat_average[chat_name]/2)))
+				break
 		except FileNotFoundError:
 			send_message(CHAN, "what????")
 			break
 		except:
 			refresh(chat_name)
-	file_.close()
 
 
 def gen_batch_markov (chat_name):
